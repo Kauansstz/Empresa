@@ -1,6 +1,3 @@
-from pstats import SortKey
-
-
 while True:
     entrada = input('Você quer "Entrar" ou "Sair"? [E] para entrar e [S] para sair: ' )   
     login = 'kauanss'
