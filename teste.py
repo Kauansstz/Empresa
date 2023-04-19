@@ -1,28 +1,27 @@
 while True:
-    entrada = input('Você quer "Entrar" ou "Sair"? [E] para entrar e [S] para sair: ' )
-    senha_digitada = input('Senha: ')
-    senha_permitida = 123456
-    senha_digitada = int(senha_digitada)
+    entrada = input('Você quer "Entrar" ou "Sair"? [E] para entrar e [S] para sair: ' )   
+    login_permitido = login
+    senha_permitida = 123
+    # senha_digitada = int(senha_digitada)
 
  
-    if (entrada == 'E' or entrada == 'e') and senha_digitada == senha_permitida: 
-         print('Bem - Vindo!\nVoce entrou no sistgema')
-         
-         break
+    if (entrada == 'E' or entrada == 'e'): 
+        login = input('Digite o seu Úsuario: ')
+        senha_digitada = input('Senha: ')
+        print('Bem-Vindo!\nVocê entrou no sistema')
+
+        if login == login_permitido and senha_digitada == senha_permitida:
+            
+            break
  
-    elif entrada == 'S':
+    elif entrada == 'S' or entrada == 's':
         print('Você saiu do sistema') 
         break
 
     else:
-        print('Você não digitou nem entrar e nem sair')
+        print('Você não digitou nem "entrar" e nem "sair"!')
 
-pesquisar = input('Você deseja pesquisar algo? [Y] para sim e [N] para não: ')
 
-if pesquisar == 'Y' or pesquisar == 'y':
-   input('Dígite o que deseja pesquisar:\n'),
-
-elif  pesquisar == 'N' or pesquisar == 'n':...
 
 
 
