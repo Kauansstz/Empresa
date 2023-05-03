@@ -6,6 +6,14 @@ while True:
     login = 'Cascao'
     login_permitido = login
     senha_permitida = 123
+    pesquisar = 'lista'
+    lista = [
+        'Queijo{1}', 'Mouse{2}', 'Teclado{0}', 'pao{5}'
+    ]
+
+    #produto_disponivel = lista >= 1
+    #produto_indisponivel = lista < 1 
+
     # senha_digitada = int(senha_digitada)
 
  
@@ -16,8 +24,14 @@ while True:
 
         if login == login_permitido and senha_digitada == senha_permitida:
             print('Bem-Vindo!\nVocê entrou no sistema')
-            input('Pesquisar: ')
-            
+            pesquisar = input('Pesquisar: ')
+            print(lista)
+          
+            if lista >= 1:
+             print(f'Os seus produtos {lista} estão no seu estoque')
+
+            elif lista < 1:
+                print(f'Os produtos escolhido {lista} está em falta')
 
         else:
             print('Login ou a senha incorreto!')
