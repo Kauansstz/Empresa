@@ -15,7 +15,7 @@ while True:
         if login == login_permitido and senha_digitada == senha_permitida:
             print('Bem-Vindo!\nVocê entrou no sistema')
             os.system('cls')
-            continue
+            
         else:
             print('Login ou a senha incorreto!')
             break
