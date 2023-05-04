@@ -2,7 +2,7 @@ import os
 
 
 entrada = input('Você quer "Entrar" ou "Sair"? [E] para entrar e [S] para sair: ' )   
-login = 'kauanss'
+
 login_permitido = login
 teste = "111"
 senha_permitida = '123'

@@ -1,5 +1,5 @@
 import os
-teste='1111'
+
 lista = []
 while True:
     print('Selecione uma opção')
