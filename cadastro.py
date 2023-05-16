@@ -1,6 +1,6 @@
 '''
 Aba para o Usuario fazer o cadastro.
-Requisitos: nome completo, nickname, email e senha.
+Requisitos: nickname, email e senha.
 '''
 
 import os
