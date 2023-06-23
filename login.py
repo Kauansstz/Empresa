@@ -21,9 +21,6 @@ while True:
             print('Login ou a senha incorreto!')
             break
  
-    elif entrada == 'S' or entrada == 's':
+    else:
         print('Você saiu do sistema') 
         break
-
-    else:
-        print('Você não digitou nem "entrar" e nem "sair"!')

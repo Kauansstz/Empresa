@@ -15,6 +15,7 @@ while True:
         os.system('cls')
         valor = input('Digite um produto: ')
         lista.append(valor)
+       # Colocar  a função do banco de dados para puxar a lista
     elif opcao == 'a':
         for i, valor in enumerate(lista):
             print(i, valor, sep=' - ')

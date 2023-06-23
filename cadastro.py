@@ -12,16 +12,17 @@ senha_permitida = ['123']
 email = ['bb']
 
 while True:
+
     if (cadastro == 'Sim' or cadastro == 'sim'): 
+        frase = print('Digite as credênciais.')
+        print()
         usuario = input('Úsuario: ')
         senha_digitada = input('Senha: ')
         email_digitado = input('Email: ')
+        print()
         
-    elif cadastro == 'não' or cadastro == 'Não':
-        print('Redericionando para o login.')
-    
     else:
-        print('Você não digitou sim ou não.')
+        print('Redericionando para o login.')
         break
     if usuario in login or email_digitado in email:
         print('Usuario já cadastrado.')
@@ -30,7 +31,7 @@ while True:
         print('Usuario não cadastrado.')
         cas = input('Deseja cadastrar? ')
 
-        if cas == 's' or cas == 'S':
+        if cas == 'sim' or cas == 'Sim':
             print('Preencha os campos necessarios para realizar o cadastro')
             print()
             login_nv = input('Insira o usuario: ')
@@ -40,6 +41,7 @@ while True:
             senha_permitida.append(senha_digitada)
             email.append(email_digitado)
             print('Login criado, Redericionando para o menu')
-        
+            break
         else:
              print('Redericionando para o login.')
+             break
