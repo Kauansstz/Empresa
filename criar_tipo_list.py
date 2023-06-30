@@ -12,6 +12,7 @@ while True:
         print()
         #aparecer uma imagem correspondente com a opção 
         if opcao == 'P' or opcao == 'p':
+            
             print('Criado') #redenrecionar para a lista
 
         if opcao == 'E' or opcao == 'e':

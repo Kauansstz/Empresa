@@ -11,6 +11,7 @@ login = ['a']
 senha_permitida = ['123']
 email = ['bb']
 
+
 while True:
 
     if (cadastro == 'Sim' or cadastro == 'sim'): 
@@ -40,7 +41,8 @@ while True:
             login.append(usuario)
             senha_permitida.append(senha_digitada)
             email.append(email_digitado)
-            print('Login criado, Redericionando para o menu')
+            print('Login criado')
+            print()
             break
         else:
              print('Redericionando para o login.')
