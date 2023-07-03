@@ -1,29 +1,39 @@
 import cx_Oracle
-def sql_query():
+def sql_query(sql):
     # create the connection
-    dsn     = cx_Oracle.makedsn('', 
+    dsn     = cx_Oracle.makedsn('localhost', 
                                 1521, 
-                                service_name = '')
+                                service_name = 'XEPDB1')
 
-    conn    = cx_Oracle.connect(user     = '', 
-                                password = '',  
+    conn    = cx_Oracle.connect(user     = 'system', 
+                                password = 'kauan',  
                                 dsn      = dsn)
 
     cursor  = conn.cursor()
-    cursor.execute('select * from consincomonitor.tb_statusconexaopdv where nroempresa = 19')
+    cursor.execute(sql)
     result  = cursor.fetchall()
     
     # Close the connection
     cursor.close()
     conn.close()
 
-    for i in result:
-        dict = {}
-        dict['nroempresa'] = i[0]
-        dict['nrocheckout'] = i[1]
-        dict['ultimaconexao'] = i[3]
-        print(dict)
         
-    # return result
+    return result
 
-sql_query()
+def sql_inserir(sql):
+    # create the connection
+    dsn     = cx_Oracle.makedsn('localhost', 
+                                1521, 
+                                service_name = 'XEPDB1')
+
+    conn    = cx_Oracle.connect(user     = 'system', 
+                                password = 'kauan',  
+                                dsn      = dsn)
+
+    cursor  = conn.cursor()
+    cursor.execute(sql)
+    conn.commit()
+    
+    # Close the connection
+    cursor.close()
+    conn.close()
