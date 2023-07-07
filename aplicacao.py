@@ -75,6 +75,7 @@ def tela():
             user = Label(janela, text='Úsuario:' , font=('Arial',10))
             user.place(x=0, y=0)
             botao1 = Button(janela, text='Inserir', font=('Arial', 20), background='white', width= 20)
+            botao1["command"] = lambda botao1=botao1: inserir(janela)
             botao1.place(x=300, y=200)
             botao2 = Button(janela, text='Consultar', font=('Arial', 20), background='white', width= 20)
             botao2["command"] = lambda botao2=botao2: con(botao2, janela)
@@ -145,9 +146,67 @@ def tela():
             botao5= Button(janela,text="Voltar",font=('Arial',18), background='blue', fg='white', width=10)
             botao5["command"] = lambda botao5=botao5: usuario(janela)
             botao5.place(x= 320, y= 400)
-
+        def delete(name):
+                banco.sql_inserir(f"""DELETE FROM listas_tabelas_jogos WHERE nome_jogo = '{name}'""")
+                return 'Deletado com sucesso'
         
+        def apagar( janela1):
+            
+            janela1.destroy()
+            janela = Tk()
+            janela.geometry('1024x768')
+            janela.title("Lista")
+            janela.iconbitmap("imagens/icone.ico")
+            janela.config(background='white')
+            txt = Label(janela, text=' Digite o nome do jogo para apagar.',font=('Arial', 18), background='white')
+            txt.place(x=290,y=200)
+            caixa_txt = Entry(janela,width=28 ,font=('Arial',18))
+            caixa_txt.place(x=304, y=300)
 
+            botao4= Button(janela,text="Executar",font=('Arial',18), background='blue', fg='white', width=10)
+            botao4["command"] = lambda name=caixa_txt: delete(name.get())
+            botao4.place(x= 500, y= 400)
+            botao5= Button(janela,text="Voltar",font=('Arial',18), background='blue', fg='white', width=10)
+            botao5["command"] = lambda botao5=botao5: usuario(janela)
+            botao5.place(x= 320, y= 400)
+
+        def insercao(nj,df,qh,th):
+            banco.sql_inserir(f"""INSERT INTO listas_tabelas_jogos
+                                (nome_jogo, 
+                                nv_dificuldade, 
+                                quantidade_de_horas, 
+                                total_horas) 
+                                VALUES('{nj}'
+                                        ,'{df}', 
+                                        {qh},
+                                        {th} )""")
+        def inserir(janela1):
+            janela1.destroy()
+            janela = Tk()
+            janela.geometry('1024x768')
+            janela.title("Lista")
+            janela.iconbitmap("imagens/icone.ico")
+            janela.config(background='white')
+            cx = Label(janela, text='Preencha o Formulario.', font=('Arial', 30), background='white')
+            cx.pack(padx= 40, pady= 50)
+            cx_txt1 = Label(janela, text=' - Nome do Jogo.',font=('Arial', 18), background='white')
+            cx_txt1.place(x=10, y= 150)
+            ent1 = Entry(janela, width=20, font=('Arial', 16), background='gray')
+            ent1.place(x=10, y=180)
+            cx_txt2 = Label(janela, text=' - Nivel do Jogo.',font=('Arial', 18), background='white')
+            cx_txt2.place(x=10, y=240)
+            ent2 = Entry(janela, width=20, font=('Arial', 16), background='gray')
+            ent2.place(x=10, y=270)
+            cx_txt3 = Label(janela, text=' - Horas que o jogo propoem.',font=('Arial', 18), background='white')
+            cx_txt3.place(x=50, y= 150)
+            ent3 = Entry(janela, width=20, font=('Arial', 16), background='gray')
+            ent3.place(x=50, y=180)
+            cx_txt4 = Label(janela, text=' - Total de Horas jogadas.',font=('Arial', 18), background='white')
+            cx_txt4.place(x=100, y=180)
+            ent4 = Entry(janela, width=20, font=('Arial', 16), background='gray')
+            ent4.place(x=100, y=180)
+            botao6 = Button(janela, text='Executar',width=20, background='blue', font=('Arial', 16), fg ='white' )
+            botao6.place(x=450, y=500)
     janela.mainloop()
    
 tela()
