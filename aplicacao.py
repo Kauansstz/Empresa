@@ -119,7 +119,10 @@ def tela():
                 scrollbar.grid(row=0, column=1, sticky="ns")
                 table.configure(yscrollcommand=scrollbar.set)
                 janela.grid_rowconfigure(0, weight=1)
-                janela.grid_columnconfigure(0, weight=1)                 
+                janela.grid_columnconfigure(0, weight=1)
+                botao8= Button(janela, text="Voltar", background='blue', fg='white', font=('Arial', 18), width=10)
+                botao8["command"]= lambda botao8=botao8: usuario(janela)
+                botao8.place(x=500, y= 500)              
             else:
                 print('foda')
 
@@ -170,43 +173,53 @@ def tela():
             botao5["command"] = lambda botao5=botao5: usuario(janela)
             botao5.place(x= 320, y= 400)
 
-        def insercao(nj,df,qh,th):
-            banco.sql_inserir(f"""INSERT INTO listas_tabelas_jogos
-                                (nome_jogo, 
-                                nv_dificuldade, 
-                                quantidade_de_horas, 
-                                total_horas) 
-                                VALUES('{nj}'
-                                        ,'{df}', 
-                                        {qh},
-                                        {th} )""")
+        def incluir(nj,df,qh,th):
+           banco.sql_inserir(f"""INSERT INTO listas_tabelas_jogos
+                        (nome_jogo, 
+                         nv_dificuldade, 
+                         quantidade_de_horas, 
+                         total_horas) 
+                         VALUES('{nj}'
+                                ,'{df}', 
+                                {qh},
+                                {th} )""")
+           return 'Deu certo'
+
         def inserir(janela1):
+            #configurações da janela
             janela1.destroy()
             janela = Tk()
             janela.geometry('1024x768')
             janela.title("Lista")
             janela.iconbitmap("imagens/icone.ico")
             janela.config(background='white')
+            #configurações da janela
+            #configurações dos botões e Frases
             cx = Label(janela, text='Preencha o Formulario.', font=('Arial', 30), background='white')
             cx.pack(padx= 40, pady= 50)
-            cx_txt1 = Label(janela, text=' - Nome do Jogo.',font=('Arial', 18), background='white')
-            cx_txt1.place(x=10, y= 150)
-            ent1 = Entry(janela, width=20, font=('Arial', 16), background='gray')
-            ent1.place(x=10, y=180)
-            cx_txt2 = Label(janela, text=' - Nivel do Jogo.',font=('Arial', 18), background='white')
-            cx_txt2.place(x=10, y=240)
-            ent2 = Entry(janela, width=20, font=('Arial', 16), background='gray')
-            ent2.place(x=10, y=270)
-            cx_txt3 = Label(janela, text=' - Horas que o jogo propoem.',font=('Arial', 18), background='white')
-            cx_txt3.place(x=50, y= 150)
-            ent3 = Entry(janela, width=20, font=('Arial', 16), background='gray')
-            ent3.place(x=50, y=180)
-            cx_txt4 = Label(janela, text=' - Total de Horas jogadas.',font=('Arial', 18), background='white')
-            cx_txt4.place(x=100, y=180)
-            ent4 = Entry(janela, width=20, font=('Arial', 16), background='gray')
-            ent4.place(x=100, y=180)
-            botao6 = Button(janela, text='Executar',width=20, background='blue', font=('Arial', 16), fg ='white' )
-            botao6.place(x=450, y=500)
+            cx_txt1 = Label(janela, text='Nome do Jogo.',font=('Arial', 18), background='white', )
+            cx_txt1.place(x=250, y= 150)
+            ent1 = Entry(janela, width=22, font=('Arial', 16), background='gray', fg='white')
+            ent1.place(x=250, y=190)
+            cx_txt2 = Label(janela, text='Nivel do Jogo.',font=('Arial', 18), background='white')
+            cx_txt2.place(x=250, y=240)
+            ent2 = Entry(janela, width=22, font=('Arial', 16), background='gray', fg='white')
+            ent2.place(x=250, y=270)
+            cx_txt3 = Label(janela, text=' Horas de jogo.',font=('Arial', 18), background='white')
+            cx_txt3.place(x=600, y= 150)
+            ent3 = Entry(janela, width=22, font=('Arial', 16), background='gray', fg='white')
+            ent3.place(x=600, y=190)
+            cx_txt4 = Label(janela, text='Total de Horas jogadas.',font=('Arial', 18), background='white')
+            cx_txt4.place(x=600, y=240)
+            ent4 = Entry(janela, width=22, font=('Arial', 16), background='gray', fg='white')
+            ent4.place(x=600, y=270)
+            botao6 = Button(janela, text='Executar',width=15, background='blue', font=('Arial', 16), fg ='white' )
+            botao6["command"] = lambda nj=ent1, df=ent2, qh=ent3, th= ent4: incluir(nj.get(),df.get(), qh.get(),th.get())
+            botao6.place(x=550, y=400)
+            botao7 = Button(janela, text='Voltar', width=15, background='blue', font=('Arial', 16), fg='white')
+            botao7["command"] = lambda botao7=botao7: usuario(janela)
+            botao7.place(x=300, y=400)
+            #configurações dos botões e Frases
     janela.mainloop()
    
 tela()
