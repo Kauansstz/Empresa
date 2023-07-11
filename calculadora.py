@@ -5,6 +5,7 @@ import json
 
 
 
+
 def tela():
     with open('dados.json', 'r') as file:
         cor = json.load(file)
@@ -14,6 +15,7 @@ def tela():
     janela.title('Calculadora')
     janela.iconbitmap("imagens/calc.ico")
     janela.config(background=cor["cor"])
+
     # Caixa de Entrada
     entrada = Entry(janela, background='White', fg='green', font=('Arial', 50))
     entrada.place(x=0, y=50, width=900, height=60)
@@ -54,7 +56,6 @@ def tela():
     bnt15 = Button(janela, background='light gray', font=('Arial', 16),width=5, fg='white', text='=',height=2)
     bnt15.place(x=335, y=535)
     bnt19 = Button(janela, background='light gray', font=('Arial', 16),width=5, fg='black', text='÷',height=2)
-    bnt19["command"] = lambda mais=bnt19 : num(mais)
     bnt19.place(x=335, y=255)
      # Configuração dos sinais
      # Configurações dos simbolos 
@@ -88,21 +89,21 @@ def tela():
     bnt29["command"] = lambda bnt29=bnt29: menu(janela)
     bnt29.place(x=0, y=0)
      # Configuração de Botao
-    def num(mais):
-        num1 ='1'
-        num2 ='2'
-        num3 ='3'
-        num4 ='4'
-        num5 ='5'
-        num6 ='6'
-        num7 ='7'
-        num8 ='8'
-        num9 ='9'
-        num0 ='0'
-        mais = '+'
-        menos ='-'
-        div = '/'
-        mult = '*'
+    
+    def Onclick(self):
+        if bnt1:
+            num1 = entrada.get()
+            num2 = entrada.get()
+            if bnt4:
+                num1_float = float(num1)
+                num2_float = float(num2)
+                resultado = num1_float + num2_float
+                print (resultado)
+
+        else:
+            ...
+
+        
     def menu(janela1):
         with open('dados.json', 'r') as file:
             cor = json.load(file)
