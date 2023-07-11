@@ -19,12 +19,15 @@ def tela():
     # Caixa de Entrada
     entrada = Entry(janela, background='White', fg='green', font=('Arial', 50))
     entrada.place(x=0, y=50, width=900, height=60)
+
     # Caixa de Entrada
     # Configuração dos números
     bnt1 = Button(janela, background='gray', font=('Arial', 16),width=8, fg='White', text='1', height=2)
+    bnt1["command"] = lambda num1=bnt1 : somar()
     bnt1.place(x=5, y=465)
     bnt2 = Button(janela, background='grey', font=('Arial', 16),width=8, fg='White', text='2', height=2)
     bnt2.place(x=115, y=465)
+    bnt2["command"] = lambda num2=bnt1 : somar()
     bnt3 = Button(janela, background='grey', font=('Arial', 16),width=8, fg='White', text='3', height=2)
     bnt3.place(x=225, y=465)
     bnt5 = Button(janela, background='gray', font=('Arial', 16),width=8, fg='White', text='4',height=2)
@@ -89,21 +92,17 @@ def tela():
     bnt29["command"] = lambda bnt29=bnt29: menu(janela)
     bnt29.place(x=0, y=0)
      # Configuração de Botao
-    
-    def Onclick(self):
-        if bnt1:
-            num1 = entrada.get()
-            num2 = entrada.get()
-            if bnt4:
-                num1_float = float(num1)
-                num2_float = float(num2)
-                resultado = num1_float + num2_float
-                print (resultado)
-
-        else:
-            ...
 
         
+    def Onclick():
+        atual = entrada.get()
+        if atual:
+            return somar()
+
+    def somar(btn=None):
+        resultado = bnt1["text"] + bnt2["text"]
+        return resultado
+
     def menu(janela1):
         with open('dados.json', 'r') as file:
             cor = json.load(file)
