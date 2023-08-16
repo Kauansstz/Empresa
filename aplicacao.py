@@ -1,9 +1,8 @@
 import banco
-import login
 
 import tkinter as tk
-from tkinter import Tk, Label, Button, Pack, Entry, PhotoImage, ttk
-from PIL import ImageTk, Image
+from tkinter import Tk, Label, Button, Entry, ttk, messagebox
+
 
 
 
@@ -15,15 +14,7 @@ def tela():
     janela.title("Lista")
     janela.iconbitmap("imagens/icone.ico")
     janela.config(background='white')
-    # entrada = btn.get()
-    # Configuração da Janela
-
-    img = Image.open("C:/Users/V/Desktop/projeto/imagens/paisagem.jpg")
-    img = img.resize((1600,980))
-    img_tk = ImageTk.PhotoImage(img)
-    img_label = Label(janela, image=img_tk)
-    img_label.place(x=0, y=0)
-
+    
     txt1 = Label(janela, text='Lista', font=('Arial',42, ), background='white')
     txt1.pack(padx=80, pady=80)
 
@@ -36,32 +27,30 @@ def tela():
     txt3 = Label(janela, text='Senha', font=('Arial',15), background='white')
     txt3.pack(padx=15, pady=10)
 
-    caixa2 = Entry(janela, text="senha", font=('Arial',15), background='white')
+    caixa2 = Entry(janela, text="senha", font=('Arial',15), background='white', show='*')
+    
     caixa2.pack(padx=12, pady=8)
 
-    btn = Button(janela, text='Entrar', font=(16), background='#4798e8', fg='white', width=10)
+    btn = Button(janela, text='Entrar', font=(16), background='blue', fg='white', width=10)
     btn["command"] = lambda a=caixa1, b=caixa2: usuario(janela,a, b)
     btn.pack(padx=25, pady=30)
    
     lb = Label(janela, text="Esqueci a minha senha", font=('Arial black', 10), fg='blue')
     lb.config(bg=janela['bg'])
     lb.pack(padx=40, pady=45)
-    # Configuração das Imagens
-    imagem = Image.open("C:/Users/V/Desktop/projeto/imagens/cadeado.ico")
-    imagem = imagem.resize((25, 25))  
-    imagem_tk = ImageTk.PhotoImage(imagem)
-
-    label_imagem = Label(janela, image=imagem_tk)
-    label_imagem.place(x=399, y=559)
+    
 
     
     def usuario(janela1, a='', b=''):
         flag = False
        
         try:
-            result = banco.sql_query(f"""SELECT count(*) FROM tabela_login WHERE login = '{a.get()}' and senha = '{b.get()}'""")
+            result = banco.sql_query(f"""SELECT count(*) FROM tb_login WHERE login = '{a.get()}' and senha = '{b.get()}'""")
             if result[0][0] == 1:
                 flag = True
+                
+            else:
+                messagebox.showerror("Error!", "Login ou Senha incorreto!")
 
         except:
              flag = True
@@ -69,30 +58,26 @@ def tela():
             janela1.destroy()
             janela = Tk()
             janela.geometry('1024x768')
-            janela.title("Lista")
+            janela.title("Menu Principal")
             janela.iconbitmap("imagens/icone.ico")
             janela.config(background='white')
             user = Label(janela, text='Úsuario:' , font=('Arial',10))
             user.place(x=0, y=0)
+            bnt = Button(janela, text='Criar Tabela', font=('Arial', 20), background='white', width=20 )
+            bnt ["command"]= lambda bnt=bnt: create_table(janela)
+            bnt.pack(padx= 10, pady=20)
             botao1 = Button(janela, text='Inserir', font=('Arial', 20), background='white', width= 20)
             botao1["command"] = lambda botao1=botao1: inserir(janela)
-            botao1.place(x=300, y=200)
+            botao1.pack(padx=10, pady=20)
             botao2 = Button(janela, text='Consultar', font=('Arial', 20), background='white', width= 20)
             botao2["command"] = lambda botao2=botao2: con(botao2, janela)
-            botao2.place(x=300, y=300)
+            botao2.pack(padx=10, pady=20)
             botao3 = Button(janela, text='Deletar', font=('Arial', 20), background='white', width= 20)
             botao3["command"] = lambda botao3=botao3: apagar( janela)
-            botao3.place(x=300, y=400)
-
-            
-        else:
-            mensagem = Label(janela, text="Login ou senha está incorreto!", font=('Arial black', 10), fg = 'red')
-            mensagem.place(x= 400, y=530)
-            
-    
+            botao3.pack(padx=10, pady=20)
 
         def con(botao2,janela):
-            result = banco.sql_query('select * from listas_tabelas_jogos')
+            result = banco.sql_query('select * from list_jogos')
             
             if len(result) > 0:
                 janela.destroy()
@@ -127,7 +112,7 @@ def tela():
                 print('foda')
 
         def delete(name):
-                banco.sql_inserir(f"""DELETE FROM listas_tabelas_jogos WHERE nome_jogo = '{name}'""")
+                banco.sql_inserir(f"""DELETE FROM list_jogos WHERE nome_jogo = '{name}'""")
                 return 'Deletado com sucesso'
         
         def apagar( janela1):
@@ -149,36 +134,13 @@ def tela():
             botao5= Button(janela,text="Voltar",font=('Arial',18), background='blue', fg='white', width=10)
             botao5["command"] = lambda botao5=botao5: usuario(janela)
             botao5.place(x= 320, y= 400)
-        def delete(name):
-                banco.sql_inserir(f"""DELETE FROM listas_tabelas_jogos WHERE nome_jogo = '{name}'""")
-                return 'Deletado com sucesso'
         
-        def apagar( janela1):
-            
-            janela1.destroy()
-            janela = Tk()
-            janela.geometry('1024x768')
-            janela.title("Lista")
-            janela.iconbitmap("imagens/icone.ico")
-            janela.config(background='white')
-            txt = Label(janela, text=' Digite o nome do jogo para apagar.',font=('Arial', 18), background='white')
-            txt.place(x=290,y=200)
-            caixa_txt = Entry(janela,width=28 ,font=('Arial',18))
-            caixa_txt.place(x=304, y=300)
-
-            botao4= Button(janela,text="Executar",font=('Arial',18), background='blue', fg='white', width=10)
-            botao4["command"] = lambda name=caixa_txt: delete(name.get())
-            botao4.place(x= 500, y= 400)
-            botao5= Button(janela,text="Voltar",font=('Arial',18), background='blue', fg='white', width=10)
-            botao5["command"] = lambda botao5=botao5: usuario(janela)
-            botao5.place(x= 320, y= 400)
-
         def incluir(nj,df,qh,th):
-           banco.sql_inserir(f"""INSERT INTO listas_tabelas_jogos
-                        (nome_jogo, 
-                         nv_dificuldade, 
-                         quantidade_de_horas, 
-                         total_horas) 
+           banco.sql_inserir(f"""INSERT INTO list_jogos
+                        ( NOME_JOGO,
+                        DIFICULDADE,
+                        QTN_HORAS,
+                        TOTAL_HORAS) 
                          VALUES('{nj}'
                                 ,'{df}', 
                                 {qh},
@@ -220,6 +182,21 @@ def tela():
             botao7["command"] = lambda botao7=botao7: usuario(janela)
             botao7.place(x=300, y=400)
             #configurações dos botões e Frases
+            
+        def create_table(janela1):
+            janela1.destroy()
+            janela = Tk()
+            janela.geometry('1024x768')
+            janela.title("Lista")
+            janela.iconbitmap("imagens/icone.ico")
+            janela.config(background='white')
+            l_txt2 = Label(janela, text='Preencha o Formulario.', font=('Arial', 30), background='white')
+            l_txt2.pack(padx= 40, pady= 50)
+            l_txt = Label(janela, text='Nome da lista que deseja criar.',font=('Arial', 18), background='white', )
+            l_txt.place(x=320, y= 150)
+            ent1 = Entry(janela, width=22, font=('Arial', 16), background='white')
+            ent1.place(x=340, y=190)
+            
     janela.mainloop()
    
 tela()
