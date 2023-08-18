@@ -1,5 +1,5 @@
 import banco
-
+import cx_Oracle
 import tkinter as tk
 from tkinter import Tk, Label, Button, Entry, ttk, messagebox
 
@@ -21,7 +21,7 @@ def tela():
     txt2 = Label(janela, text='Login', font=('Arial',15), background='white')
     txt2.pack(padx=15, pady=10)
 
-    caixa1 = Entry(janela, text="Login", font=('Arial',15))
+    caixa1 = Entry(janela, text="Login", font=('Arial',15), background='white')
     caixa1.pack(padx=12, pady=8)
 
     txt3 = Label(janela, text='Senha', font=('Arial',15), background='white')
@@ -64,7 +64,7 @@ def tela():
             user = Label(janela, text='Úsuario:' , font=('Arial',10))
             user.place(x=0, y=0)
             bnt = Button(janela, text='Criar Tabela', font=('Arial', 20), background='white', width=20 )
-            bnt ["command"]= lambda bnt=bnt: create_table(janela)
+            bnt ["command"]= lambda bnt=bnt: create_table_info(janela)
             bnt.pack(padx= 10, pady=20)
             botao1 = Button(janela, text='Inserir', font=('Arial', 20), background='white', width= 20)
             botao1["command"] = lambda botao1=botao1: inserir(janela)
@@ -183,34 +183,53 @@ def tela():
             botao7.place(x=300, y=400)
             #configurações dos botões e Frases
             
-        def create_table(janela1):
-            janela1.destroy()
-            janela = Tk()
-            janela.geometry('1024x768')
-            janela.title("Lista")
-            janela.iconbitmap("imagens/icone.ico")
-            janela.config(background='white')
-            l_txt = Label(janela, text='Nome do formulário que deseja criar.',font=('Arial', 18), background='white')
-            l_txt.pack(padx=40, pady= 100)
-            ent1 = Entry(janela, width=22, font=('Arial', 16), background='white')
-            ent1.pack(padx=0, pady=0)
-            bnt_next = Button(janela, width=22, font=('Arial', 16), background='blue', fg='white',text='Avançar')
-            bnt_next["command"] = lambda bnt_next=bnt_next:create_table_info(janela)
-            bnt_next.pack(padx=10, pady=100)
+        def create_table(text_box_name, tb):
+            flag = False
+            try:
+                flag = True   
+                if flag:
+                    table_name = text_box_name.get()
+                    columns = tb.get()
+                    column_defs = ', '.join([f'{col.strip()} VARCHAR2(100)' for col in columns])
+                    
+                    # Chamada à função para inserir no banco (substitua com a sua lógica)
+                    banco.sql_inserir(f"""CREATE TABLE {table_name} ({column_defs})""")
+                    messagebox.showinfo("Informação", "Tabela Criada!")
             
-        def create_table_info(janela1):
+            except cx_Oracle.DatabaseError as e :
+                flag = False
+                error, = e.args
+                messagebox.showerror("Erro no Banco de Dados", f"Ocorreu um erro no banco de dados:\n{error.message}")
+
+            
+            
+        def create_table_info(janela1, ):
             janela1.destroy()
             janela = Tk()
             janela.geometry('1024x768')
             janela.title("Lista")
             janela.iconbitmap("imagens/icone.ico")
             janela.config(background='white')
-            l_txt = Label(janela, text='Qual o estilo do formulário?',font=('Arial', 18), background='white')
-            l_txt.pack(padx=100, pady=100)
-            bnt_list = Button(janela, text="Lista",width=22, font=('Arial', 16), background='blue', fg='white')
-            bnt_list.pack(padx=50, pady=20 )
-            bnt_table=Button(janela, text="Tabela",width=22, font=('Arial', 16), background='blue', fg='white')
-            bnt_table.pack(padx=50, pady=20 )
+            header = Label(janela, text='Preencha o formulário.',font=('Arial', 35), background='white')
+            header.pack(padx=10, pady=10)
+            
+            l_txt1 = Label(janela, text='Nome da tabela.',font=('Arial', 18), background='white')
+            l_txt1.pack(padx=5, pady=8)
+            text_box_name = Entry(janela, width=22, font=('Arial', 16), background='white')
+            text_box_name.pack(padx=15, pady=5)
+            text_boxes = []
+            for i in range(4):  # Adapte conforme a quantidade de colunas desejada
+                label_text = f'Nome da {i+1}ª coluna.'
+                l_txt = tk.Label(janela, text=label_text, font=('Arial', 18), background='white')
+                l_txt.pack(padx=15, pady=8)
+                text_box = tk.Entry(janela, width=22, font=('Arial', 16), background='white')
+                text_box.pack(padx=15, pady=5)
+                text_boxes.append(text_box)
+            btn_avancar = Button(janela, text='Executar',width=15, background='blue', font=('Arial', 16), fg ='white' )
+            btn_avancar["command"] = lambda text_box_name = text_box_name, tb = text_box : create_table(text_box_name, tb)
+            btn_avancar.pack(padx=15, pady=8)
+            
+            
     janela.mainloop()
    
 tela()
