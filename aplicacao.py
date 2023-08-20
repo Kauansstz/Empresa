@@ -40,9 +40,11 @@ def tela():
     def menu(janela1, a='', b=''):
         
         flag = False
-        
+        teste = banco.sql_query(f"""SELECT login FROM tb_login WHERE login = '{a.get().upper()}'""")
+        l=teste[0][0]
         try:
             result = banco.sql_query(f"""SELECT count(*) FROM tb_login WHERE login = '{a.get().upper()}' and senha = '{b.get()}'""")
+            
             if result[0][0] == 1:
                 flag = True
                 
@@ -51,8 +53,7 @@ def tela():
 
         except:
             flag = True
-        result = banco.sql_query(f"""SELECT login FROM tb_login WHERE login = '{a.get().upper()}'""")
-        login=result[0][0]
+        
         if flag:
             janela1.destroy()
             janela = Tk()
@@ -60,7 +61,7 @@ def tela():
             janela.title("Menu Principal")
             janela.iconbitmap("imagens/icone.ico")
             janela.config(background='white')
-            user = Label(janela, text=f'Úsuario: {login}' , font=('Arial',10), background='white')
+            user = Label(janela, text=f'Úsuario: {l}' , font=('Arial',10), background='white')
             user.place(x=0, y=0)
             bnt = Button(janela, text='Criar Tabela', font=('Arial', 20), background='white', width=20 )
             bnt ["command"]= lambda bnt=bnt: create_table_info(janela)
