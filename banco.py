@@ -34,6 +34,7 @@ def sql_inserir(sql):
     cursor.execute(sql)
     conn.commit()
     
+    
     # Close the connection
     cursor.close()
     conn.close()

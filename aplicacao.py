@@ -1,5 +1,6 @@
 import banco
 import cx_Oracle
+import re
 import tkinter as tk
 from tkinter import Tk, Label, Button, Entry, ttk, messagebox
 
@@ -34,18 +35,14 @@ def tela():
     btn = Button(janela, text='Entrar', font=(16), background='blue', fg='white', width=10)
     btn["command"] = lambda a=caixa1, b=caixa2: usuario(janela,a, b)
     btn.pack(padx=25, pady=30)
-   
-    lb = Label(janela, text="Esqueci a minha senha", font=('Arial black', 10), fg='blue')
-    lb.config(bg=janela['bg'])
-    lb.pack(padx=40, pady=45)
-    
 
     
     def usuario(janela1, a='', b=''):
+        
         flag = False
-       
+        
         try:
-            result = banco.sql_query(f"""SELECT count(*) FROM tb_login WHERE login = '{a.get()}' and senha = '{b.get()}'""")
+            result = banco.sql_query(f"""SELECT count(*) FROM tb_login WHERE login = '{a.get().upper()}' and senha = '{b.get()}'""")
             if result[0][0] == 1:
                 flag = True
                 
@@ -53,7 +50,9 @@ def tela():
                 messagebox.showerror("Error!", "Login ou Senha incorreto!")
 
         except:
-             flag = True
+            flag = True
+        result = banco.sql_query(f"""SELECT login FROM tb_login WHERE login = '{a.get().upper()}'""")
+        login=result[0][0]
         if flag:
             janela1.destroy()
             janela = Tk()
@@ -61,22 +60,22 @@ def tela():
             janela.title("Menu Principal")
             janela.iconbitmap("imagens/icone.ico")
             janela.config(background='white')
-            user = Label(janela, text='Úsuario:' , font=('Arial',10))
+            user = Label(janela, text=f'Úsuario: {login}' , font=('Arial',10), background='white')
             user.place(x=0, y=0)
             bnt = Button(janela, text='Criar Tabela', font=('Arial', 20), background='white', width=20 )
             bnt ["command"]= lambda bnt=bnt: create_table_info(janela)
-            bnt.pack(padx= 10, pady=20)
+            bnt.pack(padx= 10, pady=50)
             botao1 = Button(janela, text='Inserir', font=('Arial', 20), background='white', width= 20)
-            botao1["command"] = lambda botao1=botao1: inserir(janela)
-            botao1.pack(padx=10, pady=20)
+            botao1["command"] = lambda botao1=botao1: insert(janela)
+            botao1.pack(padx=10, pady=50)
             botao2 = Button(janela, text='Consultar', font=('Arial', 20), background='white', width= 20)
-            botao2["command"] = lambda botao2=botao2: con(botao2, janela)
-            botao2.pack(padx=10, pady=20)
+            botao2["command"] = lambda botao2=botao2: consult(botao2, janela)
+            botao2.pack(padx=10, pady=50)
             botao3 = Button(janela, text='Deletar', font=('Arial', 20), background='white', width= 20)
-            botao3["command"] = lambda botao3=botao3: apagar( janela)
-            botao3.pack(padx=10, pady=20)
+            botao3["command"] = lambda botao3=botao3: delete_info( janela)
+            botao3.pack(padx=10, pady=50)
 
-        def con(botao2,janela):
+        def consult(janela):
             result = banco.sql_query('select * from list_jogos')
             
             if len(result) > 0:
@@ -115,7 +114,7 @@ def tela():
                 banco.sql_inserir(f"""DELETE FROM list_jogos WHERE nome_jogo = '{name}'""")
                 return 'Deletado com sucesso'
         
-        def apagar( janela1):
+        def delete_info( janela1):
             
             janela1.destroy()
             janela = Tk()
@@ -135,7 +134,7 @@ def tela():
             botao5["command"] = lambda botao5=botao5: usuario(janela)
             botao5.place(x= 320, y= 400)
         
-        def incluir(nj,df,qh,th):
+        def enter(nj,df,qh,th):
            banco.sql_inserir(f"""INSERT INTO list_jogos
                         ( NOME_JOGO,
                         DIFICULDADE,
@@ -147,7 +146,7 @@ def tela():
                                 {th} )""")
            return 'Deu certo'
 
-        def inserir(janela1):
+        def insert(janela1):
             #configurações da janela
             janela1.destroy()
             janela = Tk()
@@ -176,28 +175,36 @@ def tela():
             ent4 = Entry(janela, width=22, font=('Arial', 16), background='gray', fg='white')
             ent4.place(x=600, y=270)
             botao6 = Button(janela, text='Executar',width=15, background='blue', font=('Arial', 16), fg ='white' )
-            botao6["command"] = lambda nj=ent1, df=ent2, qh=ent3, th= ent4: incluir(nj.get(),df.get(), qh.get(),th.get())
+            botao6["command"] = lambda nj=ent1, df=ent2, qh=ent3, th= ent4: enter(nj.get(),df.get(), qh.get(),th.get())
             botao6.place(x=550, y=400)
             botao7 = Button(janela, text='Voltar', width=15, background='blue', font=('Arial', 16), fg='white')
             botao7["command"] = lambda botao7=botao7: usuario(janela)
             botao7.place(x=300, y=400)
             #configurações dos botões e Frases
             
-        def create_table(text_box_name, tb):
-            flag = False
+        def create_table(text_box_name, column1, column2, column3, column4 ):
             try:
-                flag = True   
-                if flag:
                     table_name = text_box_name.get()
-                    columns = tb.get()
-                    column_defs = ', '.join([f'{col.strip()} VARCHAR2(100)' for col in columns])
-                    
-                    # Chamada à função para inserir no banco (substitua com a sua lógica)
-                    banco.sql_inserir(f"""CREATE TABLE {table_name} ({column_defs})""")
+                    columns_text1 = column1.get()
+                    columns_text2 = column2.get()
+                    columns_text3 = column3.get()
+                    columns_text4 = column4.get()
+                    columns1 = [col1.strip() for col1 in re.split(r'[,\s]+', columns_text1)]
+                    columns2 = [col2.strip() for col2 in re.split(r'[,\s]+', columns_text2)] 
+                    columns3 = [col3.strip() for col3 in re.split(r'[,\s]+', columns_text3)] 
+                    columns4 = [col4.strip() for col4 in re.split(r'[,\s]+', columns_text4)] 
+                    column_1 = ', '.join([f'{col1.strip()} VARCHAR2(100)' for col1 in columns1])
+                    column_2 = ', '.join([f'{col2.strip()} VARCHAR2(100)' for col2 in columns2])
+                    column_3 = ', '.join([f'{col3.strip()} VARCHAR2(100)' for col3 in columns3])
+                    column_4 = ', '.join([f'{col4.strip()} VARCHAR2(100)' for col4 in columns4])
+                    # Chamada à função para inserir no banco
+                    banco.sql_inserir(f"""CREATE TABLE {table_name} ({column_1},
+                                                                      {column_2},
+                                                                      {column_3},
+                                                                      {column_4})""")
                     messagebox.showinfo("Informação", "Tabela Criada!")
             
             except cx_Oracle.DatabaseError as e :
-                flag = False
                 error, = e.args
                 messagebox.showerror("Erro no Banco de Dados", f"Ocorreu um erro no banco de dados:\n{error.message}")
 
@@ -211,23 +218,31 @@ def tela():
             janela.iconbitmap("imagens/icone.ico")
             janela.config(background='white')
             header = Label(janela, text='Preencha o formulário.',font=('Arial', 35), background='white')
-            header.pack(padx=10, pady=10)
-            
+            header.pack(padx=10, pady=10) 
             l_txt1 = Label(janela, text='Nome da tabela.',font=('Arial', 18), background='white')
             l_txt1.pack(padx=5, pady=8)
             text_box_name = Entry(janela, width=22, font=('Arial', 16), background='white')
             text_box_name.pack(padx=15, pady=5)
-            text_boxes = []
-            for i in range(4):  # Adapte conforme a quantidade de colunas desejada
-                label_text = f'Nome da {i+1}ª coluna.'
-                l_txt = tk.Label(janela, text=label_text, font=('Arial', 18), background='white')
-                l_txt.pack(padx=15, pady=8)
-                text_box = tk.Entry(janela, width=22, font=('Arial', 16), background='white')
-                text_box.pack(padx=15, pady=5)
-                text_boxes.append(text_box)
+            l_txt2 = Label(janela, text='Nome da 1º coluna.',font=('Arial', 18), background='white')
+            l_txt2.pack(padx=5, pady=8)
+            text_box_column1 = Entry(janela, width=22, font=('Arial', 16), background='white')
+            text_box_column1.pack(padx=15, pady=5)
+            l_txt3 = Label(janela, text='Nome da 2º coluna.',font=('Arial', 18), background='white')
+            l_txt3.pack(padx=5, pady=8)
+            text_box_column2 = Entry(janela, width=22, font=('Arial', 16), background='white')
+            text_box_column2.pack(padx=15, pady=5)
+            l_txt4 = Label(janela, text='Nome da 3º coluna.',font=('Arial', 18), background='white')
+            l_txt4.pack(padx=5, pady=8)
+            text_box_column3 = Entry(janela, width=22, font=('Arial', 16), background='white')
+            text_box_column3.pack(padx=15, pady=5)
+            l_txt5 = Label(janela, text='Nome da 4º coluna.',font=('Arial', 18), background='white')
+            l_txt5.pack(padx=5, pady=8)
+            text_box_column4 = Entry(janela, width=22, font=('Arial', 16), background='white')
+            text_box_column4.pack(padx=15, pady=5)
             btn_avancar = Button(janela, text='Executar',width=15, background='blue', font=('Arial', 16), fg ='white' )
-            btn_avancar["command"] = lambda text_box_name = text_box_name, tb = text_box : create_table(text_box_name, tb)
+            btn_avancar["command"] = lambda text_box_name = text_box_name, column1 = text_box_column1, column2 = text_box_column2, column3 = text_box_column3 , column4 = text_box_column4: create_table(text_box_name, column1, column2, column3, column4 )
             btn_avancar.pack(padx=15, pady=8)
+            messagebox.showinfo("Aviso!", "Favor usar o _ (Underline) para o espaçamento")
             
             
     janela.mainloop()

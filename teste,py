@@ -1,0 +1,37 @@
+import cx_Oracle
+
+# Configurações de conexão ao banco de dados
+username = 'system'
+password = 'kauan'
+dsn = cx_Oracle.makedsn('localhost', 
+                                1521, 
+                                service_name = 'XEPDB1')  # Pode ser um TNS name ou uma string de conexão completa
+
+# Criar a conexão
+connection = cx_Oracle.connect(username, password, dsn)
+
+# Criar um cursor
+cursor = connection.cursor()
+
+# Consulta SQL para listar as tabelas
+query_tables = "SELECT table_name FROM user_tables"
+
+# Executar a consulta de tabelas
+cursor.execute(query_tables)
+
+# Obter os resultados das tabelas
+tabelas = cursor.fetchall()
+
+# Verificar se há dados em cada tabela
+for tabela in tabelas:
+    table_name = tabela[0]
+    query_count = f"SELECT COUNT(*) FROM {table_name}"
+    cursor.execute(query_count)
+    count_result = cursor.fetchone()
+
+    if count_result[0] > 0:
+        print(f"A tabela '{table_name}' contém {count_result[0]} registros.")
+
+# Fechar cursor e conexão
+cursor.close()
+connection.close()
