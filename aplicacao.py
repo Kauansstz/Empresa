@@ -33,11 +33,11 @@ def tela():
     caixa2.pack(padx=12, pady=8)
 
     btn = Button(janela, text='Entrar', font=(16), background='blue', fg='white', width=10)
-    btn["command"] = lambda a=caixa1, b=caixa2: usuario(janela,a, b)
+    btn["command"] = lambda a=caixa1, b=caixa2: menu(janela,a, b)
     btn.pack(padx=25, pady=30)
 
     
-    def usuario(janela1, a='', b=''):
+    def menu(janela1, a='', b=''):
         
         flag = False
         
@@ -105,7 +105,7 @@ def tela():
                 janela.grid_rowconfigure(0, weight=1)
                 janela.grid_columnconfigure(0, weight=1)
                 botao8= Button(janela, text="Voltar", background='blue', fg='white', font=('Arial', 18), width=10)
-                botao8["command"]= lambda botao8=botao8: usuario(janela)
+                botao8["command"]= lambda botao8=botao8: menu(janela)
                 botao8.place(x=500, y= 500)              
             else:
                 print('foda')
@@ -131,7 +131,7 @@ def tela():
             botao4["command"] = lambda name=caixa_txt: delete(name.get())
             botao4.place(x= 500, y= 400)
             botao5= Button(janela,text="Voltar",font=('Arial',18), background='blue', fg='white', width=10)
-            botao5["command"] = lambda botao5=botao5: usuario(janela)
+            botao5["command"] = lambda botao5=botao5: menu(janela)
             botao5.place(x= 320, y= 400)
         
         def enter(nj,df,qh,th):
@@ -178,7 +178,7 @@ def tela():
             botao6["command"] = lambda nj=ent1, df=ent2, qh=ent3, th= ent4: enter(nj.get(),df.get(), qh.get(),th.get())
             botao6.place(x=550, y=400)
             botao7 = Button(janela, text='Voltar', width=15, background='blue', font=('Arial', 16), fg='white')
-            botao7["command"] = lambda botao7=botao7: usuario(janela)
+            botao7["command"] = lambda botao7=botao7: menu(janela)
             botao7.place(x=300, y=400)
             #configurações dos botões e Frases
             
