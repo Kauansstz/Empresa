@@ -1,13 +1,16 @@
 import banco
 import cx_Oracle
 import re
+import os
+
 import tkinter as tk
 from tkinter import Tk, Label, Button, Entry, ttk, messagebox
 
 
 
 
-    
+
+
 def tela():
     # Configuração Janela
     janela = Tk()
@@ -37,11 +40,11 @@ def tela():
     btn.pack(padx=25, pady=30)
 
     
-    def menu(janela1, a='', b=''):
+    
+    def menu(janela1, a = '', b =''):
         
         flag = False
-        teste = banco.sql_query(f"""SELECT login FROM tb_login WHERE login = '{a.get().upper()}'""")
-        l=teste[0][0]
+        
         try:
             result = banco.sql_query(f"""SELECT count(*) FROM tb_login WHERE login = '{a.get().upper()}' and senha = '{b.get()}'""")
             
@@ -55,14 +58,13 @@ def tela():
             flag = True
         
         if flag:
+            
             janela1.destroy()
             janela = Tk()
             janela.geometry('1024x768')
             janela.title("Menu Principal")
             janela.iconbitmap("imagens/icone.ico")
             janela.config(background='white')
-            user = Label(janela, text=f'Úsuario: {l}' , font=('Arial',10), background='white')
-            user.place(x=0, y=0)
             bnt = Button(janela, text='Criar Tabela', font=('Arial', 20), background='white', width=20 )
             bnt ["command"]= lambda bnt=bnt: create_table_info(janela)
             bnt.pack(padx= 10, pady=50)
@@ -70,17 +72,29 @@ def tela():
             botao1["command"] = lambda botao1=botao1: insert(janela)
             botao1.pack(padx=10, pady=50)
             botao2 = Button(janela, text='Consultar', font=('Arial', 20), background='white', width= 20)
-            botao2["command"] = lambda botao2=botao2: consult(botao2, janela)
+            botao2["command"] = lambda botao2=botao2: consult_info( janela)
             botao2.pack(padx=10, pady=50)
             botao3 = Button(janela, text='Deletar', font=('Arial', 20), background='white', width= 20)
-            botao3["command"] = lambda botao3=botao3: delete_info( janela)
+            botao3["command"] = lambda botao3=botao3: delete_info(janela)
             botao3.pack(padx=10, pady=50)
-
-        def consult(janela):
-            result = banco.sql_query('select * from list_jogos')
             
-            if len(result) > 0:
-                janela.destroy()
+        def consult_info(janela1):
+            janela1.destroy()
+            janela = Tk()
+            janela.geometry('1024x768')
+            janela.title("Lista")
+            janela.iconbitmap("imagens/icone.ico")
+            janela.config(background='white')
+            table = Entry(janela, width=22, font=('Arial', 16), background='white')
+            table.pack(padx=100, pady=100)
+            b = Button(janela, text='avançar', font=('Arial', 20), background='white', width= 20)
+            b["command"] = lambda table_name=table: consult(janela, table_name.get())
+            b.pack(padx=10, pady=50)
+            
+        def consult(janela1,table_name ='' ):
+            result = banco.sql_query(f"""SELECT * FROM {table_name} WHERE 1=0""")
+            try:
+                janela1.destroy()
                 janela = Tk()
                 janela.geometry('1024x768')
                 janela.title("Lista")
@@ -108,9 +122,10 @@ def tela():
                 botao8= Button(janela, text="Voltar", background='blue', fg='white', font=('Arial', 18), width=10)
                 botao8["command"]= lambda botao8=botao8: menu(janela)
                 botao8.place(x=500, y= 500)              
-            else:
-                print('foda')
-
+            except cx_Oracle.DatabaseError as e :
+                error, = e.args
+                messagebox.showerror("Erro no Banco de Dados", f"Ocorreu um erro no banco de dados:\n{error.message}")
+        
         def delete(name):
                 banco.sql_inserir(f"""DELETE FROM list_jogos WHERE nome_jogo = '{name}'""")
                 return 'Deletado com sucesso'
@@ -123,7 +138,7 @@ def tela():
             janela.title("Lista")
             janela.iconbitmap("imagens/icone.ico")
             janela.config(background='white')
-            txt = Label(janela, text=' Digite o nome do jogo para apagar.',font=('Arial', 18), background='white')
+            txt = Label(janela, text=' Digite o nome da primeira coluna para deletar.',font=('Arial', 18), background='white')
             txt.place(x=290,y=200)
             caixa_txt = Entry(janela,width=28 ,font=('Arial',18))
             caixa_txt.place(x=304, y=300)
@@ -135,17 +150,34 @@ def tela():
             botao5["command"] = lambda botao5=botao5: menu(janela)
             botao5.place(x= 320, y= 400)
         
-        def enter(nj,df,qh,th):
-           banco.sql_inserir(f"""INSERT INTO list_jogos
-                        ( NOME_JOGO,
-                        DIFICULDADE,
-                        QTN_HORAS,
-                        TOTAL_HORAS) 
-                         VALUES('{nj}'
-                                ,'{df}', 
-                                {qh},
-                                {th} )""")
-           return 'Deu certo'
+        def enter(text_box_name, column1, column2, column3, column4):
+            try:
+                table_name = text_box_name.get()
+                columns_text1 = column1.get()
+                columns_text2 = column2.get()
+                columns_text3 = column3.get()
+                columns_text4 = column4.get()
+                columns1 = [col1.strip() for col1 in re.split(r'[,\s]+', columns_text1)]
+                columns2 = [col2.strip() for col2 in re.split(r'[,\s]+', columns_text2)] 
+                columns3 = [col3.strip() for col3 in re.split(r'[,\s]+', columns_text3)] 
+                columns4 = [col4.strip() for col4 in re.split(r'[,\s]+', columns_text4)] 
+                column_1 = ', '.join([f'{col1.strip()} VARCHAR2(100)' for col1 in columns1])
+                column_2 = ', '.join([f'{col2.strip()} VARCHAR2(100)' for col2 in columns2])
+                column_3 = ', '.join([f'{col3.strip()} VARCHAR2(100)' for col3 in columns3])
+                column_4 = ', '.join([f'{col4.strip()} VARCHAR2(100)' for col4 in columns4])
+                banco.sql_inserir(f"""INSERT INTO {table_name}
+                                ( NOME_JOGO,
+                                DIFICULDADE,
+                                QTN_HORAS,
+                                TOTAL_HORAS) 
+                                VALUES('{column_1}'
+                                        ,'{column_2}', 
+                                        {column_3},
+                                        {column_4} )""")
+            except cx_Oracle.DatabaseError as e :
+                error, = e.args
+                messagebox.showerror("Erro no Banco de Dados", f"Ocorreu um erro no banco de dados:\n{error.message}")
+            return 'Deu certo'
 
         def insert(janela1):
             #configurações da janela
