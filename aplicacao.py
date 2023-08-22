@@ -92,40 +92,49 @@ def tela():
             b.pack(padx=10, pady=50)
             
         def consult(janela1,table_name ='' ):
-            result = banco.sql_query(f"""SELECT * FROM {table_name} WHERE 1=0""")
+
+            # Puxar os nomes das colunas
+            
+            flag = False
             try:
-                janela1.destroy()
-                janela = Tk()
-                janela.geometry('1024x768')
-                janela.title("Lista")
-                janela.iconbitmap("imagens/icone.ico")
-                janela.config(background='white')
-                table = ttk.Treeview(janela, selectmode="extended", columns=("col1", "col2", "col3", "col4"))
-                table.grid(row=0, column=0, sticky="nsew")
-                table.heading("col1", text="Nome do Jogo")
-                table.heading("col2", text="Dificuldade")
-                table.heading("col3", text="Horas jogadas")
-                table.heading("col4", text="Total de Horas")
-                table.column("#0", width=0, stretch=tk.NO)
-                table.column("col1", width=450)
-                table.column("col2", width=140)
-                table.column("col3", width=100)
-                table.column("col4", width=100)
-                for i in result:
-                    table.insert("", "end", values=(i[0], i[1], i[2], i[3]))
-                    print(i)
-                scrollbar = ttk.Scrollbar(janela, orient="vertical", command="table.yview")
-                scrollbar.grid(row=0, column=1, sticky="ns")
-                table.configure(yscrollcommand=scrollbar.set)
-                janela.grid_rowconfigure(0, weight=1)
-                janela.grid_columnconfigure(0, weight=1)
-                botao8= Button(janela, text="Voltar", background='blue', fg='white', font=('Arial', 18), width=10)
-                botao8["command"]= lambda botao8=botao8: menu(janela)
-                botao8.place(x=500, y= 500)              
-            except cx_Oracle.DatabaseError as e :
-                error, = e.args
-                messagebox.showerror("Erro no Banco de Dados", f"Ocorreu um erro no banco de dados:\n{error.message}")
-        
+                result = banco.sql_query(f"""SELECT * FROM {table_name} """)
+                if result[0][0] > 1:
+                    flag = True
+                    print(result)
+            except:
+                flag = True
+                if flag:
+                    janela1.destroy()
+                    janela = Tk()
+                    janela.geometry('1024x768')
+                    janela.title("Lista")
+                    janela.iconbitmap("imagens/icone.ico")
+                    janela.config(background='white')
+                    table = ttk.Treeview(janela, selectmode="extended", columns=("col1", "col2", "col3", "col4"))
+                    table.grid(row=0, column=0, sticky="nsew")
+                    table.heading("col1", text="" )
+                    table.heading("col2", text="")
+                    table.heading("col3", text="")
+                    table.heading("col4", text="")
+                    table.column("#0", width=0, stretch=tk.NO)
+                    table.column("col1", width=450)
+                    table.column("col2", width=140)
+                    table.column("col3", width=100)
+                    table.column("col4", width=100)
+                    for i in result:
+                        table.insert("", "end", values=(i[0], i[1], i[2], i[3]))
+                        
+                        print(i)
+                    scrollbar = ttk.Scrollbar(janela, orient="vertical", command="table.yview")
+                    scrollbar.grid(row=0, column=1, sticky="ns")
+                    table.configure(yscrollcommand=scrollbar.set)
+                    janela.grid_rowconfigure(0, weight=1)
+                    janela.grid_columnconfigure(0, weight=1)
+                    botao8= Button(janela, text="Voltar", background='blue', fg='white', font=('Arial', 18), width=10)
+                    botao8["command"]= lambda botao8=botao8: menu(janela)
+                    botao8.place(x=500, y= 500)   
+                else:
+                    print('erro')           
         def delete(name):
                 banco.sql_inserir(f"""DELETE FROM list_jogos WHERE nome_jogo = '{name}'""")
                 return 'Deletado com sucesso'
