@@ -1,5 +1,4 @@
 import banco
-import cx_Oracle
 import re
 import tkinter as tk
 from tkinter import Tk, Label, Button, Entry, ttk, messagebox
@@ -138,7 +137,6 @@ def screen():
             botao5.place(x= 320, y= 400)
         
         def enter(name_game, level, game_hours, total_hours):
-            try:
                 banco.sql_inserir(f"""INSERT INTO list_jogos
                                 ( NOME_JOGO,
                                 DIFICULDADE,
@@ -148,10 +146,8 @@ def screen():
                                         ,'{level}', 
                                         {game_hours},
                                         {total_hours} )""")
-            except cx_Oracle.DatabaseError as e :
-                error, = e.args
-                messagebox.showerror("Erro no Banco de Dados", f"Ocorreu um erro no banco de dados:\n{error.message}")
-            return 'Deu certo'
+            
+            
         # Inserting information in the insert function and sending it to the enter function and including data in the table
         def insert(Windows1):
             #configurações da janela
@@ -213,9 +209,8 @@ def screen():
                                                                       {column_4})""")
                     messagebox.showinfo("Informação", "Tabela Criada!")
             
-            except cx_Oracle.DatabaseError as e :
-                error, = e.args
-                messagebox.showerror("Erro no Banco de Dados", f"Ocorreu um erro no banco de dados:\n{error.message}")
+            except:
+                messagebox.showerror("Erro!", "Favor usar _(Underline) para o espaçamento")
 
         
             
