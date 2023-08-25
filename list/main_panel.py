@@ -31,10 +31,9 @@ def menu(Windows1, login = '', password =''):
             button_delete  = Button(Windows, text='Deletar', font=('Arial', 20), background='white', width= 20)
             button_delete ["command"] = lambda botao3=button_delete : delete_info(Windows)
             button_delete.pack(padx=10, pady=50)
-            
+
         else:
             text_box_error = Label( text='Não possui cadastro? Favor entrar em contato com o administrador.', font=('Arial',15), background='white')
             text_box_error.pack(padx=15, pady=10)
             messagebox.showerror("Error!", "Login ou Senha incorreto!")
-
-        
+     

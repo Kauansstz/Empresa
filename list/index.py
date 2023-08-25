@@ -1,4 +1,4 @@
-from commands_list import main_panel
+import main_panel 
 from tkinter import Tk, Label, Button, Entry
 
 def screen():
@@ -31,7 +31,7 @@ def screen():
     enter_button.pack(padx=25, pady=30)
     
     def open_menu_one(self, login, password):
-        main_panel.menu(self, login, password)
+            main_panel.menu(self, login, password)
             
     Windows.mainloop()
    
