@@ -1,4 +1,4 @@
-import main_panel
+from commands_list import main_panel
 from tkinter import Tk, Label, Button, Entry
 
 def screen():
