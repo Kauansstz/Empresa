@@ -1,4 +1,5 @@
 import cx_Oracle
+
 def sql_query(sql):
     # create the connection
     dsn     = cx_Oracle.makedsn('localhost', 
