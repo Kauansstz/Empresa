@@ -1,4 +1,4 @@
-import main
+import main_panel
 from tkinter import Tk, Label, Button, Entry
 
 def screen():
@@ -27,12 +27,11 @@ def screen():
     inbox_password.pack(padx=12, pady=8)
 
     enter_button = Button(Windows, text='Entrar', font=(16), background='blue', fg='white', width=10)
-    enter_button["command"] = lambda login=inbox_user, password=inbox_password: open_menu(Windows,login, password)
+    enter_button["command"] = lambda login=inbox_user, password=inbox_password: open_menu_one(Windows,login, password)
     enter_button.pack(padx=25, pady=30)
     
-    
-    def open_menu(self,login, password):
-        main.menu(self,login, password)
+    def open_menu_one(self, login, password):
+        main_panel.menu(self, login, password)
             
     Windows.mainloop()
    

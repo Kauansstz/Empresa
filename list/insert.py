@@ -1,6 +1,6 @@
 import banco
-from main import menu
-from tkinter import Tk, Label, Button, Entry, ttk, messagebox
+import main_panel
+from tkinter import Tk, Label, Button, Entry, messagebox
 
 def insert(Windows1):
             #configurações da janela
@@ -35,7 +35,7 @@ def insert(Windows1):
                                                                                                                                                                        total_hours.get())
             execute_button.place(x=550, y=400)
             butoon_back = Button(Windows, text='Voltar', width=15, background='blue', font=('Arial', 16), fg='white')
-            butoon_back["command"] = lambda botao7=butoon_back: open_menu_one(Windows)
+            butoon_back["command"] = lambda botao7=butoon_back: open_menu_two(Windows)
             butoon_back.place(x=300, y=400)
             
             
@@ -53,5 +53,5 @@ def insert(Windows1):
                                         {total_hours} )""")
                     messagebox.showinfo("Aviso!", "Dados Inseridos!")
 
-def open_menu_one(self):
-        menu(self)
+def open_menu_two(self):
+        main_panel.menu(self)

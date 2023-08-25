@@ -1,5 +1,5 @@
 import banco
-from main import menu
+import main_panel
 import tkinter as tk
 from tkinter import Tk, Button, ttk, messagebox
 
@@ -34,10 +34,10 @@ def consult_info(Windows1 ):
                     Windows.grid_rowconfigure(0, weight=1)
                     Windows.grid_columnconfigure(0, weight=1)
                     button_back= Button(Windows, text="Voltar", background='blue', fg='white', font=('Arial', 18), width=10)
-                    button_back["command"]= lambda botao8=button_back: open_menu_two(Windows)
+                    button_back["command"]= lambda botao8=button_back: open_menu_four(Windows)
                     button_back.place(x=500, y= 500)   
             else:
                 messagebox.showerror("Erro!", "Tabela inexistente")
             return result
-def open_menu_two(self):
-    menu(self)
+def open_menu_four(self):
+    main_panel.menu(self)

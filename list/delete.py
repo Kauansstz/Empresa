@@ -1,5 +1,5 @@
 import banco
-from main import menu
+import main_panel
 from tkinter import Tk, Label, Button, Entry, messagebox
 def delete(name):
             banco.sql_inserir(f"""DELETE FROM list_jogos WHERE nome_jogo = '{name}'""")
@@ -25,6 +25,5 @@ def delete_info( Windows1):
     botao5= Button(Windows,text="Voltar",font=('Arial',18), background='blue', fg='white', width=10)
     botao5["command"] = lambda botao5=botao5: open_menu_three(Windows)
     botao5.place(x= 320, y= 400)
-
 def open_menu_three(self):
-    menu(self)
+    main_panel.menu(self)
