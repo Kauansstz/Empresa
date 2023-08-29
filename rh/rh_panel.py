@@ -1,4 +1,4 @@
-from banco import sql_query
+from database import banco
 from rh_image import pay_payslip
 from rh_user import create_user
 from tkinter import Tk, Label, Button, Entry, ttk, messagebox
@@ -6,7 +6,7 @@ from tkinter import Tk, Label, Button, Entry, ttk, messagebox
 def main_panel(Windows1,login='', senha=''):
     flag = False
     try:
-        resultado =  sql_query(F"""SELECT COUNT(*) FROM TB_LOGIN WHERE login = '{login.get().upper()}' AND senha = '{senha.get().upper()}'""")
+        resultado = banco.sql_query(F"""SELECT COUNT(*) FROM TB_LOGIN WHERE login = '{login.get().upper()}' AND senha = '{senha.get().upper()}'""")
         if resultado[0][0] == 1:
             flag= True
     except:
@@ -14,7 +14,7 @@ def main_panel(Windows1,login='', senha=''):
     if flag:
         Windows1.destroy()
         Windows = Tk()
-        Windows.geometry('1024x768')
+        Windows.geometry('1440x1080')
         Windows.title("Rh_Acesso")
         Windows.iconbitmap("imagens/rh.ico")
         Windows.config(background='white')

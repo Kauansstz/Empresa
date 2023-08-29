@@ -1,4 +1,4 @@
-import banco
+from database import banco
 import main_panel
 import tkinter as tk
 from tkinter import Tk, Button, ttk, messagebox
