@@ -1,4 +1,4 @@
-from banco import sql_query
+from database import banco
 from inserted import insert
 from delete import delete_info
 from consult import consult_info
@@ -10,7 +10,7 @@ def menu(Windows1, login = '', password =''):
         flag= False
         
         try:
-            result = sql_query(f"""SELECT count(*) FROM tb_login WHERE login = '{login.get().upper()}' and senha = '{password.get().upper()}'""")
+            result = banco.sql_query(f"""SELECT count(*) FROM tb_login WHERE login = '{login.get().upper()}' and senha = '{password.get().upper()}'""")
             if result[0][0] == 1:
                 flag = True
         except:
