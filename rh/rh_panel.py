@@ -3,15 +3,15 @@ from rh_image import pay_payslip
 from rh_user import create_user
 from tkinter import Tk, Label, Button, Entry, ttk, messagebox
 
-def main_panel(Windows1,login='', senha=''):
-    flag = False
-    try:
-        resultado = banco.sql_query(F"""SELECT COUNT(*) FROM TB_LOGIN WHERE login = '{login.get().upper()}' AND senha = '{senha.get().upper()}'""")
-        if resultado[0][0] == 1:
-            flag= True
-    except:
-        flag = True
-    if flag:
+def main_panel(Windows1):
+    # flag = False
+    # try:
+    #     resultado = banco.sql_query(F"""SELECT COUNT(*) FROM TB_LOGIN_RH WHERE login = '{login.get().upper()}' AND senha = '{senha.get().upper()}' AND SETOR = 'RH' OR SETOR = 'TI'""")
+    #     if resultado[0][0] == 1:
+    #         flag= True
+    # except:
+    #     flag = True
+    # if flag:
         Windows1.destroy()
         Windows = Tk()
         Windows.geometry('1440x1080')
@@ -30,5 +30,5 @@ def main_panel(Windows1,login='', senha=''):
         button_create_user["command"] = lambda : create_user(Windows)
         button_create_user.pack(padx=10, pady=50)
     
-    else:
-        messagebox.showerror("Erro!", "Login ou Senha incorretos")
+    # else:
+    #     messagebox.showerror("Erro!", "Login ou Senha incorretos")

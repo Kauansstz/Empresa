@@ -1,4 +1,5 @@
 import rh_panel
+import classe
 from tkinter import Tk, Label, Button, Entry, ttk, messagebox
 
 def screen():
@@ -22,10 +23,10 @@ def screen():
     inbox_password.pack(padx=10, pady=10)
     
     button_logout = Button(Windows, text='Entrar', font=(16), background='blue', fg='white', width=20)
-    button_logout["command"] = lambda login=inbox_logout, senha = inbox_password: open_rh_panel_one(Windows,login,senha)
+    button_logout["command"] = lambda login=inbox_logout, senha = inbox_password: open_classe(Windows, login,senha)
     button_logout.pack(padx=10, pady=50)
     
-    def open_rh_panel_one(self,login,senha):
-        rh_panel.main_panel(self,login,senha)
+    def open_classe(self, login,senha):
+        classe.database(self, login,senha)
     Windows.mainloop()
 screen()
