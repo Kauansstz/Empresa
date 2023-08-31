@@ -2,7 +2,7 @@ import rh_panel
 import tkinter as tk
 from tkinter import Tk, Label, Button
 from tkinter import filedialog
-from PIL import Image, ImageTk
+import os
 
 def pay_payslip(Windows1):
     Windows1.destroy()
@@ -12,38 +12,27 @@ def pay_payslip(Windows1):
     Windows.iconbitmap("imagens/rh.ico")
     Windows.config(background='white')
     
-    def open_image():
-            file_path = filedialog.askopenfilename(filetypes=[("Image Files", "*.png *.jpg *.jpeg *.gif *.bmp")])
-            if file_path:
-                image = Image.open(file_path)
-                photo = ImageTk.PhotoImage(image)
-                image_label.config(image=photo)
-                image_label.photo = photo
+    txt_tittle = Label(Windows, text='Lançar Holerite', font=('Arial', 35), background='white')
+    txt_tittle.pack(padx=0, pady=50)
+    
+    def browse_image():
+        file_path = filedialog.askopenfilename(filetypes=[("Image Files", "*.png *.jpg *.jpeg *.gif")])
+        if file_path:
+            file_name = os.path.basename(file_path)
+            entry_image_path.delete(0, tk.END)  # Limpar o conteúdo anterior
+            entry_image_path.insert(0, file_name)
             
-    load_image = Button(Windows, text="Carregar Imagem", command=open_image)
-    load_image.pack(padx=10, pady=50)
-    image_label =Label(Windows)
-    image_label.pack(padx=10, pady=50)
-    def on_scroll(*args):
-                canvas.yview(*args)
-                text.yview(*args)
-                canvas = tk.Canvas(Windows)
-                canvas.pack(side=tk.LEFT, fill=tk.BOTH, expand=True)   
-                scrollbar = tk.Scrollbar(Windows, command=on_scroll)
-                scrollbar.pack(side=tk.LEFT, fill=tk.Y) 
-                text = tk.Text(canvas, yscrollcommand=scrollbar.set)
-                text.pack(fill=tk.BOTH, expand=True)
-                canvas.create_window(0, 0, anchor=tk.NW, window=text)
-                canvas.update_idletasks()
-                canvas.config(scrollregion=canvas.bbox(tk.ALL))
-                
-    # Cria um rótulo para exibir a imagem carregada
+    entry_image_path = tk.Entry(Windows, width=50)
+    entry_image_path.pack(pady=10)
+
+    browse_button = tk.Button(Windows, text="Procurar Imagem", command=browse_image)
+    browse_button.pack(pady=50)
     
     button_exe = Button(Windows, text='Executar', font=('Arial', 20), background='blue', fg='white', width=10)
-    button_exe.pack(padx=10, pady=50)
+    button_exe.pack(padx=10, pady=10)
     button_back = Button(Windows, text='Voltar', font=('Arial', 20), background='blue', fg='white', width=10)
     button_back["command"] = lambda button_back=button_back: open_panel_one(Windows)
-    button_back.pack(padx=10, pady=50)
+    button_back.pack(padx=10, pady=10)
 
 def open_panel_one(self):
     rh_panel.main_panel(self)
