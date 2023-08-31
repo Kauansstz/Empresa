@@ -1,6 +1,6 @@
 import rh_panel
 import tkinter as tk
-from tkinter import Tk, Label, Button, Entry, messagebox, ttk
+from tkinter import Tk, Label, Button
 from tkinter import filedialog
 from PIL import Image, ImageTk
 

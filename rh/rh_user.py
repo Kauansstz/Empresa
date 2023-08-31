@@ -60,7 +60,7 @@ def open_panel(self):
     rh_panel.main_panel(self)
     
 def inserted(name, mail, registration, sector,office, store):
-    banco.sql_inserir(f"""INSERT INTO tb_login_rh(
+    banco.sql_inserir(f"""INSERT INTO tb_login(
                             NOME_COMPLETO,
                             EMAIL,
                             MATRICULA,
