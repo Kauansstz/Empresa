@@ -1,10 +1,11 @@
-from database import banco
+# from database import banco
+from database import banco_server
 from rh_image import pay_payslip
 from rh_user import create_user
 from tkinter import Tk, Label, Button, Entry, ttk, messagebox
 
 def main_panel(Windows1,login='', senha=''):
-        resultado = banco.sql_query(F"""SELECT COUNT(*) FROM tb_rh WHERE login = '{login}' AND password = '{senha}' """)
+        resultado = banco_server.sql_server_query(f"""SELECT COUNT(*) FROM tb_login_rh WHERE usuario = '{login}' AND senha = '{senha}' """)
         if resultado[0][0] == 1:
             Windows1.destroy()
             Windows = Tk()

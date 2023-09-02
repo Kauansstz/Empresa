@@ -1,7 +1,7 @@
 import rh_panel
-from database import banco
+from database import banco_server
 import cx_Oracle
-from tkinter import Tk, Label, Button, Entry, ttk, messagebox
+from tkinter import Tk, Label, Button, Entry, messagebox
 
 
 def create_user(Windows1):
@@ -75,7 +75,7 @@ def open_panel(self):
     
 def inserted(name, mail, login, password, office, sector, registration,store):
     try:
-        banco.sql_inserir(f"""INSERT INTO tb_login(
+        banco_server.sql_server_insert(f"""INSERT INTO tb_login(
                                 NOME_COMPLETO,
                                 EMAIL,
                                 LOGIN,
