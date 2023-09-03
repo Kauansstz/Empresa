@@ -28,5 +28,6 @@ def screen():
     
     def open_rh_panel_one(Windows, login, senha):
         rh_panel.main_panel(Windows, login, senha)
+        
     Windows.mainloop()
 screen()

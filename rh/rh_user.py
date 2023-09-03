@@ -75,7 +75,7 @@ def open_panel(self):
     
 def inserted(name, mail, login, password, office, sector, registration,store):
     try:
-        banco_server.sql_server_insert(f"""INSERT INTO tb_login(
+        banco_server.sql_server_insert(f"""INSERT INTO tb_funcionarios(
                                 NOME_COMPLETO,
                                 EMAIL,
                                 LOGIN,
