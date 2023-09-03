@@ -78,7 +78,7 @@ def inserted(name, mail, login, password, office, sector, registration,store):
         banco_server.sql_server_insert(f"""INSERT INTO tb_funcionarios(
                                 NOME_COMPLETO,
                                 EMAIL,
-                                LOGIN,
+                                USUARIO,
                                 SENHA,
                                 CARGO,
                                 SETOR,

@@ -1,6 +1,6 @@
 import rh_panel
 
-from tkinter import Tk, Label, Button, Entry, ttk, messagebox
+from tkinter import Tk, Label, Button, Entry
 
 def screen():
     Windows = Tk()
@@ -23,11 +23,11 @@ def screen():
     inbox_password.pack(padx=10, pady=10)
     
     button_logout = Button(Windows, text='Entrar', font=(16), background='blue', fg='white', width=20)
-    button_logout["command"] = lambda login=inbox_logout, senha = inbox_password: open_rh_panel_one(Windows, login.get().upper(),senha.get().upper())
+    button_logout["command"] = lambda login=inbox_logout, senha = inbox_password: open_rh_panel_one(Windows, login,senha)
     button_logout.pack(padx=10, pady=50)
     
-    def open_rh_panel_one(Windows, login, senha):
-        rh_panel.main_panel(Windows, login, senha)
+    def open_rh_panel_one(self, login, senha):
+        rh_panel.main_panel(self, login, senha)
         
     Windows.mainloop()
 screen()
