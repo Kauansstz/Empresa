@@ -1,5 +1,4 @@
 import rh_panel
-
 from tkinter import Tk, Label, Button, Entry
 
 def screen():
