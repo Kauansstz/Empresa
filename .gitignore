@@ -1,6 +1,7 @@
 .banco.py
 database/
 
+
 # Django #
 *.log
 *.pot
