@@ -6,7 +6,7 @@ import tkinter as tk
 
 
 def select(Windows1):
-    result = banco.sql_query(f"""SELECT * FROM TB_login """)
+    result = banco.sql_query(f"""SELECT * FROM tb_rh""")
 
     if result[0][0] == 1:
         Windows1.destroy()
@@ -24,11 +24,11 @@ def select(Windows1):
                 "Nome",
                 "Email",
                 "Mátricula",
+                "Setor",
+                "Cargo",
+                "Loja",
                 "Usuário",
                 "Senha",
-                "Cargo",
-                "Setor",
-                "Loja",
             ),
         )
         table.grid(row=0, column=0, sticky="nsew")
@@ -36,21 +36,21 @@ def select(Windows1):
         table.heading("Nome", text="Nome")
         table.heading("Email", text="Email")
         table.heading("Mátricula", text="Mátricula")
+        table.heading("Setor", text="Setor")
+        table.heading("Cargo", text="Cargo")
+        table.heading("Loja", text="Loja")
         table.heading("Usuário", text="Usuário")
         table.heading("Senha", text="Senha")
-        table.heading("Setor", text="Cargo")
-        table.heading("Cargo", text="Setor")
-        table.heading("Loja", text="Loja")
         table.column("#0", width=0, stretch=tk.NO)
         table.column("ID", minwidth=0, width=50)
         table.column("Nome", minwidth=0, width=300)
         table.column("Email", minwidth=0, width=300)
         table.column("Mátricula", minwidth=0, width=80)
+        table.column("Setor", minwidth=0, width=80)
+        table.column("Cargo", minwidth=0, width=100)
+        table.column("Loja", minwidth=0, width=100)
         table.column("Usuário", minwidth=0, width=100)
         table.column("Senha", minwidth=0, width=80)
-        table.column("Setor", minwidth=0, width=100)
-        table.column("Cargo", minwidth=0, width=100)
-        table.column("Loja", minwidth=0, width=80)
         for i in result:
             table.insert(
                 "", "end", values=(i[0], i[1], i[2], i[3], i[4], i[5], i[6], i[7], i[8])

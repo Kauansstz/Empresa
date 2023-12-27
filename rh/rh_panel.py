@@ -11,8 +11,9 @@ def main_panel(Windows1, login="", senha=""):
 
     try:
         result = banco.sql_query(
-            f"""SELECT count(*) FROM tb_login WHERE login = '{login.upper()}' and senha = '{senha.upper()}'"""
+            f"""SELECT count(*) FROM tb_login WHERE login = {login} and senha = {senha}""",
         )
+
         if result[0][0] == 1:
             flag = True
     except:

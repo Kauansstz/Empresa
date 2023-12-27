@@ -65,9 +65,9 @@ def info(Windows1):
 
 def user_alter(name_column, new_info, name_user):
     banco.sql_inserir(
-        f"""UPDATE tb_funcionarios
+        f"""UPDATE tb_rh
                                         SET {name_column.upper()} = '{new_info.upper()}'
-                                        WHERE usuario = '{name_user.upper()}'
+                                        WHERE login = '{name_user.upper()}'
                                         """
     )
     messagebox.showinfo("Aviso!", " Alteração de dados com sucesso!")

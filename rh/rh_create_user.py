@@ -73,15 +73,15 @@ def create_user(Windows1):
     )
     button_exe[
         "command"
-    ] = lambda name=inbox_name, mail=inbox_mail, login=inbox_login, password=inbox_password, office=inbox_office, sector=inbox_sector, registration=inbox_registration, store=inbox_store: inserted(
+    ] = lambda name=inbox_name, mail=inbox_mail, registration=inbox_registration, sector=inbox_sector, office=inbox_office, store=inbox_store, login=inbox_login, password=inbox_password,: inserted(
         name.get(),
         mail.get(),
+        registration.get(),
+        sector.get(),
+        office.get(),
+        store.get(),
         login.get(),
         password.get(),
-        office.get(),
-        sector.get(),
-        registration.get(),
-        store.get(),
     )
     button_exe.place(x=650, y=600)
     button_back = Button(
@@ -100,28 +100,37 @@ def open_user(self):
     rh_user.user(self)
 
 
-def inserted(name, mail, login, password, office, sector, registration, store):
+def inserted(
+    name,
+    mail,
+    registration,
+    sector,
+    office,
+    store,
+    login,
+    password,
+):
     try:
         banco.sql_inserir(
-            f"""INSERT INTO tb_funcionarios(
+            f"""INSERT INTO tb_rh(
                                 NOME_COMPLETO,
                                 EMAIL,
-                                USUARIO,
-                                SENHA,
-                                CARGO,
-                                SETOR,
                                 MATRICULA,
-                                LOJA
+                                SETOR,
+                                CARGO,
+                                LOJA,
+                                LOGIN,
+                                PASSWORD,
                         )
                                 VALUES (
                                     '{name.upper()}',
                                     '{mail.upper()}',
+                                    '{registration.upper()}',
+                                    '{sector.upper()}',
+                                    '{office.upper()}',
+                                    '{store.upper()}'),
                                     '{login.upper()}',
                                     '{password.upper()}',
-                                    '{office.upper()}',
-                                    '{sector.upper()}',
-                                    '{registration.upper()}',
-                                    '{store.upper()}')
                             """
         )
         messagebox.showinfo("Aviso!", "Usuário Criado com Sucesso!")
