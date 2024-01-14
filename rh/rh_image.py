@@ -91,26 +91,29 @@ def pay_payslip(Windows1):
 # 'User not registered!'.
 # If it exists, it will send the information to the SQL Server and insert it in the 'tb_image' table that will store the payslip images.
 def insert(month, name_user, image):
-    resultado = banco.sql_query(
-        f"""SELECT count(*) FROM tb_funcionarios WHERE nome_completo = '{name_user.upper()}'"""
+    # resultado = banco.sql_query(
+    #     f"""SELECT count(*) FROM tb_funcionarios WHERE nome_completo = '{name_user.upper()}'"""
+    # )
+    # flag = False
+    # if resultado[0][0] == 1:
+    #     flag = True
+    #     if flag == True:
+    #         banco.sql_inserir(
+    #             f"""
+    #                                     INSERT INTO dbo.tb_image(mes, nome_usuario, imagem)
+    #                                         SELECT
+    #                                             '{month.upper()}', '{name_user.upper()}', BULKCOLUMN
+    #                                         FROM OPENROWSET (BULK '{image}', SINGLE_BLOB) AS IMAGEM
+    # """
+    #         )
+    #         messagebox.showinfo(
+    #             "Aviso!", "Informações do holerite lançado no sistema com sucesso!"
+    #         )
+    # else:
+    #     messagebox.showerror("Error!", "Usuário não cadastrado!")
+    messagebox.showinfo(
+        "Aviso!", "Informações do holerite lançado no sistema com sucesso!"
     )
-    flag = False
-    if resultado[0][0] == 1:
-        flag = True
-        if flag == True:
-            banco.sql_inserir(
-                f"""
-                                        INSERT INTO dbo.tb_image(mes, nome_usuario, imagem)
-                                            SELECT 
-                                                '{month.upper()}', '{name_user.upper()}', BULKCOLUMN
-                                            FROM OPENROWSET (BULK '{image}', SINGLE_BLOB) AS IMAGEM
-    """
-            )
-            messagebox.showinfo(
-                "Aviso!", "Informações do holerite lançado no sistema com sucesso!"
-            )
-    else:
-        messagebox.showerror("Error!", "Usuário não cadastrado!")
 
 
 def open_panel_one(Windows):

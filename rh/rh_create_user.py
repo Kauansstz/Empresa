@@ -73,7 +73,7 @@ def create_user(Windows1):
     )
     button_exe[
         "command"
-    ] = lambda name=inbox_name, mail=inbox_mail, registration=inbox_registration, sector=inbox_sector, office=inbox_office, store=inbox_store, login=inbox_login, password=inbox_password,: inserted(
+    ] = lambda name=inbox_name, mail=inbox_mail, registration=inbox_registration, sector=inbox_sector, office=inbox_office, store=inbox_store, login=inbox_login, password=inbox_password: inserted(
         name.get(),
         mail.get(),
         registration.get(),
@@ -112,28 +112,29 @@ def inserted(
 ):
     try:
         banco.sql_inserir(
-            f"""INSERT INTO tb_rh(
-                                NOME_COMPLETO,
-                                EMAIL,
-                                MATRICULA,
-                                SETOR,
-                                CARGO,
-                                LOJA,
-                                LOGIN,
-                                PASSWORD,
-                        )
+            f"""INSERT INTO TB_RH(
+                            NOME_COMPLETO,
+                            EMAIL,
+                            MATRICULA,
+                            SETOR,
+                            CARGO,
+                            LOJA,
+                            LOGIN,
+                            PASSWORD
+                    )
                                 VALUES (
                                     '{name.upper()}',
                                     '{mail.upper()}',
                                     '{registration.upper()}',
                                     '{sector.upper()}',
                                     '{office.upper()}',
-                                    '{store.upper()}'),
+                                    '{store.upper()}',
                                     '{login.upper()}',
-                                    '{password.upper()}',
-                            """
+                                    '{password.upper()}'
+                            )"""
         )
         messagebox.showinfo("Aviso!", "Usuário Criado com Sucesso!")
+
     except cx_Oracle.DatabaseError as e:
         (error,) = e.args
         messagebox.showerror(

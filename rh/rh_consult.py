@@ -6,9 +6,9 @@ import tkinter as tk
 
 
 def select(Windows1):
-    result = banco.sql_query(f"""SELECT * FROM tb_rh""")
+    result = banco.sql_query(f"""SELECT * FROM TB_RH""")
 
-    if result[0][0] == 1:
+    if result[0][0] >= 1:
         Windows1.destroy()
         Windows = Tk()
         Windows.geometry("1440x600")
@@ -53,7 +53,9 @@ def select(Windows1):
         table.column("Senha", minwidth=0, width=80)
         for i in result:
             table.insert(
-                "", "end", values=(i[0], i[1], i[2], i[3], i[4], i[5], i[6], i[7], i[8])
+                "",
+                "end",
+                values=(i[0], i[1], i[2], i[3], i[4], i[5], i[6], i[7], i[8]),
             )
         scrollbar = ttk.Scrollbar(Windows, orient="vertical", command="table.yview")
         scrollbar.grid(row=0, column=1, sticky="ns")
@@ -84,7 +86,10 @@ def select(Windows1):
         button_back.place(x=500, y=500)
 
     else:
-        messagebox.showerror("Erro!", "Tabela inexistente")
+        messagebox.showerror(
+            "Erro",
+            "Ocorreu um erro ao encontrar a tabela de funcionários, Favor contactar a TI.",
+        )
 
 
 def open_alter(self):
