@@ -1,0 +1,26 @@
+<body style="background: url(static/img/fundo.jpeg);">
+    <div class="master">
+      <div class="img-master">
+        <img src="{{'static/img/carteira.ico' }}" alt="" style="width: 80px;">
+      </div>
+      <h1>
+        <span class="tittle">
+          Holerite Online
+        </span>
+      </h1>
+      <div class='form-content conteiner'>
+        <form action="{% url "home" %}" method="POST">{% csrf_token %}
+          <div class="form-content form-content-grid">
+            <label for="" class="login-title">Username</label>
+            <input type="text" name="username" placeholder="Username..." class="login">
+            <label for="" class="login-title">Password</label>
+            <input type="password" name="password" placeholder="Password..." class= "login">
+          </div>
+          <div class='form-content'>  
+            <button  type="submit">Entrar</button>
+          </div>
+        </div>
+        </form>
+      
+    </div>
+  
