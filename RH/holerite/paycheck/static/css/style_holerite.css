@@ -1,0 +1,223 @@
+:root {
+    --color-primary: #269fe6;
+    --color-primary-hover: #2086c2;
+    --color-primary-dark: #13141f;
+    --color-primary-dark-hover: #212336;
+    --color-primary-light: #d4ecfa;
+    --color-primary-light-hover: #bdd8e7;
+  
+    --color-white: #fff;
+    --color-black: #000;
+    --color-blue: #0000FF;
+    --color-Violet: #ee82ee;
+    --color-salmon:#ef6e6e ; 
+  
+    --color-dark-text: #444;
+    --color-info-light: #cce5ff;
+    --color-debug-light: #cce5ff;
+    --color-success-light: #d4edda;
+    --color-alert-light: #fff3cd;
+    --color-warning-light: #fff3cd;
+    --color-error-light: #f8d7da;
+  
+    --color-info-dark: #4d86c4;
+    --color-debug-dark: #4d86c4;
+    --color-success-dark: #4a9c5d;
+    --color-alert-dark: #927f40;
+    --color-warning-dark: #927f40;
+    --color-error-dark: #da525d;
+  
+    --color-gray-0: #f9f9f9;
+    --color-gray-1: #e0e0e0;
+    --color-gray-2: #c7c7c7;
+    --color-gray-3: #aeaeae;
+    --color-gray-4: #959595;
+    --color-gray-5: #7d7d7d;
+    --color-gray-6: #646464;
+    --color-gray-7: #4b4b4b;
+    --color-gray-8: #323232;
+    --color-gray-9: #191919;
+  
+    --font-primary: sans-serif;
+    --font-headings: 'Roboto Slab', serif;
+  
+    --spacing-gutter-medium: 3rem;
+    --spacing-gutter-large: 4rem;
+}
+
+
+.head-holerite{
+    margin: 10rem 0 0 10rem;
+    text-align: center;
+    font-family: var(--font-primary);
+    border: 2px solid var(--color-black) ;
+    box-shadow: 0 5px 5px 0 var(--color-black);
+    width: 60rem;
+}
+.box{
+    margin: 0.5rem 0 0 10rem;
+    text-align: center;
+    font-family: var(--font-primary);
+    border: 2px solid var(--color-black) ;
+    box-shadow: 0 5px 10px 0 var(--color-black);
+    width: 60rem;
+}
+
+.conteiner{
+    display: grid;
+}
+.endereco{
+    margin: 0 40.3rem 0 0;
+}
+.empresa{
+    margin: 10px 42.5rem 0 0;
+}
+.funcao{
+    margin: 0 50.1rem 0 0;
+}
+.emploeeys{
+    display: block;
+    margin: 0 37.3rem 0 0;
+}
+.local{
+    display: flex;
+    margin-left:  45rem;
+    margin-top: -9.2rem;
+}
+.meth{
+    display: flex;
+    margin-left:  45rem;
+    margin-top: -9.2rem;
+}
+
+.box-title{
+    width: 13rem;
+    height: 1.7rem;
+    border: 2px solid  ;
+}
+.cod{
+    margin-right: 60.1rem;
+}
+.desc{
+    margin: -2rem 0 0 13rem;
+    height: 1.75rem;
+}
+.ref{
+    width: 10rem;
+    margin: -2rem 0 0 26rem;
+    height: 1.75rem;
+}
+.venc{
+    width: 10.6rem;
+    margin: -2rem 0 0 36rem;
+    height: 1.75rem;
+}
+.des{
+    margin: -2rem 0 0 46.8rem;
+    height: 1.75rem;
+}
+
+.box-body{
+    width: 12.9rem;
+   
+    border:  2px solid;
+}
+
+.sub-cod{
+    
+    margin-right: 60.1rem;
+}
+.sub-desc{
+    margin: -5rem 0 0 13rem;
+    
+}
+.sub-ref{
+    width: 10rem;
+    margin: -5rem 0 0 26rem;
+    
+}
+.sub-venc{
+    width: 10.6rem;
+    margin: -5rem 0 0 36rem;
+    
+}
+.sub-des{
+    margin: -5rem 0 0 46.8rem;
+    width: 13rem;
+}
+
+.end-box{
+    margin: 0.5rem 0 0 10rem;
+    text-align: center;
+    font-family: var(--font-primary);
+    border: 2px solid var(--color-black) ;
+    box-shadow: 0 5px 10px 0 var(--color-black);
+    width: 60rem;
+}
+.message{
+    width: 36rem;
+    margin: 0 35rem 0 0;
+    text-align: left;
+    border: 2px solid;
+    height: 3.56rem;
+}
+
+.valor-venvc{
+    width: 10.5rem;
+    margin: -3.9rem 0 0 36.2rem;
+    height: 2.5rem;
+    border: 2px solid;
+}
+.valor-liq{
+    width: 10.5rem;
+    margin: -1.3rem 0 0 36.2rem;
+    height: 1.05rem;
+    border: 2px solid;
+}
+.valor-liq-total{
+    width: 13rem;
+    margin: -1.3rem 0 0 46.8rem;
+    height: 1.05rem;
+    border: 2px solid;
+}
+.valor-desconto{
+    width: 13rem;
+    margin: -3.8rem 0 0 46.8rem;
+    height: 2.4rem;
+    border: 2px solid;
+}
+.roda-pe{
+    margin: 0.5rem 0 0 10rem;
+    text-align: center;
+    font-family: var(--font-primary);
+    border: 2px solid var(--color-black) ;
+    box-shadow: 0 5px 10px 0 var(--color-black);
+    width: 60rem;
+}
+.salario-base{
+    margin-right:52rem ;
+}
+.salario-inss{
+    margin: -2.3rem 36rem 0 0 ;
+}
+.base-fgts{
+    margin: -2.3rem 18rem 0 0 ;
+}
+.mes-base-fgts{
+    margin: -2.3rem 0 0 0 ;
+}
+.base-irrf{
+    margin: -2.3rem 0 0 15rem ;
+}
+.total{
+    margin: -2rem 0 0 40rem ;
+}
+.declaracao{
+    margin: 0.5rem 17rem 0 0 ;
+}
+.calendary{
+    margin: 1rem 48rem 0 0 ;
+}
+.assinatura{
+    margin: -2.4rem 0 0 18rem ;
+}
