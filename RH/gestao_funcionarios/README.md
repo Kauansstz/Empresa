@@ -1,0 +1,3 @@
+<h1>Projeto de Usuário</h1>
+
+<h2>Este projeto foi desenvolvido para auxiliar o departamento de Recursos Humanos (RH) na gestão de usuários. As principais funcionalidades incluem o cadastro de novos usuários, a alteração de permissões e a emissão de holerites. O objetivo é simplificar e automatizar essas tarefas, aumentando a eficiência e reduzindo o tempo necessário para a realização dessas atividades essenciais.</h2>
