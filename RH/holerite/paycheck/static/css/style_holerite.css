@@ -47,7 +47,7 @@
 
 
 .head-holerite{
-    margin: 10rem 0 0 10rem;
+    margin: 5rem 0 0 10rem;
     text-align: center;
     font-family: var(--font-primary);
     border: 2px solid var(--color-black) ;
@@ -221,3 +221,4 @@
 .assinatura{
     margin: -2.4rem 0 0 18rem ;
 }
+

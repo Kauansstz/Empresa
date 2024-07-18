@@ -66,7 +66,7 @@ nav.menu{
     overflow: hidden;
     transition: 1s;
 } 
- nav.menu:hover{     
+ nav.menu:hover {     
     width: 300px;
  }
  .txt-link{
